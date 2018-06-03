@@ -8,6 +8,8 @@
   var VK_UP         = 38;
   var VK_RIGHT      = 39;
   var VK_DOWN       = 40;
+  const VK_TAB      = 9;
+  const VK_ESCAPE   = 27;
 
   // Helper function to convert NodeLists to Arrays
   function slice(nodes) {
@@ -26,25 +28,33 @@
   RadioGroup.prototype.handleKeyDown = function(e) {
     switch(e.keyCode) {
 
+      
+      case (e.shiftKey && VK_TAB):
       case VK_UP:
       case VK_LEFT: {
 
         e.preventDefault();
-
+        this.focusedIdx =  this.focusedIdx === 0 ? this.buttons.length - 1 : this.focusedIdx - 1;
         // This seems like a good place to do some stuff :)
 
         break;
 
       }
 
+      case (!e.shiftKey && VK_TAB):
       case VK_DOWN:
       case VK_RIGHT: {
 
         e.preventDefault();
-
+        this.focusedIdx =  this.focusedIdx === this.buttons.length - 1 ? 0 : this.focusedIdx + 1;
         // This seems like a good place to do some stuff :)
 
         break;
+      }
+      case VK_ESCAPE:{
+        const elementH3 = document.querySelector('h3');
+        elementH3.setAttribute('tabIndex' , -1);
+        elementH3.focus();
       }
 
     }
@@ -59,8 +69,8 @@
 
     // Set the new button to tabindex 0 and focus it
     this.focusedButton = this.buttons[idx];
-    this.focusedButton.tabIndex = 0;
     this.focusedButton.focus();
+    this.focusedButton.tabIndex = 0;
     this.focusedButton.setAttribute('checked', 'checked');
   };
 
