@@ -36,12 +36,12 @@
   Checkbox.prototype.toggle = function() {
     if (this.el.hasAttribute('checked')) {
       this.el.removeAttribute('checked');
-
+      this.el.setAttribute('aria-checked', 'false');
       // Hmm.
 
     } else {
       this.el.setAttribute('checked', '');
-
+      this.el.setAttribute('aria-checked', 'true');
       // Hmmmmm.
 
     }
