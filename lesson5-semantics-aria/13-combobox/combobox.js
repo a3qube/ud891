@@ -169,7 +169,13 @@
             if (foundItems === 0) {
                 this.hide();
             } else {
+                let count = 0;
+                for(let item of this.visibleItems){
+                    item.setAttribute('aria-posinset',++count);
+                    item.setAttribute('aria-setsize',foundItems);
+                }
                 // FIXME: ChromeVox reports the wrong list size and position
+
             }
         },
 
